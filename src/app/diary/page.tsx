@@ -4,7 +4,6 @@ import { ContentCard } from "@/components/content-card";
 import { EmptyState } from "@/components/empty-state";
 import { FilterBar } from "@/components/filter-bar";
 import { hasPrivateAccess } from "@/lib/auth";
-import { buildUnlockUrl } from "@/lib/auth";
 import { collectCategories, collectTags, filterEntries, getAllDiaryEntries } from "@/lib/content";
 
 function pickSingle(value: string | string[] | undefined): string | undefined {
