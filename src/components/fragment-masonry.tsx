@@ -117,10 +117,14 @@ export function FragmentMasonry({ items }: FragmentMasonryProps): JSX.Element {
                     {/* If has text only, show abstract pattern or color */}
                     {item.images && item.images.length > 0 ? (
                       <div className="media-wrapper">
-                         {/* Placeholder for now since we don't have real implementation of local images yet */}
-                         <div style={{ background: "#e0e0e0", width: "100%", height: "200px", display: "flex", alignItems: "center", justifyContent: "center", color: "#888" }}>
-                            IMAGE
-                         </div>
+                         {item.images.map((imgSrc, idx) => (
+                           <img 
+                             key={idx}
+                             src={imgSrc} 
+                             alt={item.title}
+                             style={{ display: "block", width: "100%", height: "auto" }}
+                           />
+                         ))}
                       </div>
                     ) : (
                       <div className="media-placeholder" style={{ height: `${200 + (item.title.length * 5) % 150}px`, backgroundColor: `hsl(${20 + item.title.length % 30}, 20%, 90%)` }}>
