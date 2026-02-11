@@ -59,7 +59,7 @@ const navItems = [
   { href: "/fragments", label: "日常碎片", icon: Icons.Fragment },
 ];
 
-export function SideNav(): JSX.Element {
+export function SideNav({ isUnlocked = false }: { isUnlocked?: boolean }): JSX.Element {
   const pathname = usePathname();
   const router = useRouter();
   const [mounted, setMounted] = useState(false);
@@ -113,12 +113,24 @@ export function SideNav(): JSX.Element {
               </button>
             </li>
             <li className="side-nav-item-wrapper">
-              <Link href="/unlock" className="side-nav-link">
-                <span className="side-nav-icon">
-                  <Icons.Lock />
-                </span>
-                <span className="side-nav-text">解锁私密</span>
-              </Link>
+              {isUnlocked ? (
+                <div className="side-nav-link" style={{ cursor: "default", color: "var(--color-text)" }}>
+                  <span className="side-nav-icon">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5">
+                      <rect x="3" y="11" width="18" height="11" rx="2" ry="2" />
+                      <path d="M7 11V7a5 5 0 0 1 9.9-1" />
+                    </svg>
+                  </span>
+                  <span className="side-nav-text">已解锁</span>
+                </div>
+              ) : (
+                <Link href="/unlock" className="side-nav-link">
+                  <span className="side-nav-icon">
+                    <Icons.Lock />
+                  </span>
+                  <span className="side-nav-text">解锁私密</span>
+                </Link>
+              )}
             </li>
             <li className="side-nav-item-wrapper">
               <button onClick={handleLogout} className="side-nav-link" aria-label="退出">

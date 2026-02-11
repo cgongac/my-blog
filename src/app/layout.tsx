@@ -3,6 +3,7 @@ import { JetBrains_Mono, Playfair_Display } from "next/font/google";
 
 import { siteConfig } from "@/config/site";
 import { SideNav } from "@/components/side-nav";
+import { hasPrivateAccess } from "@/lib/auth";
 
 import "@/app/globals.css";
 
@@ -41,11 +42,13 @@ export const metadata: Metadata = {
 };
 
 export default function RootLayout({ children }: Readonly<{ children: React.ReactNode }>): JSX.Element {
+  const isUnlocked = hasPrivateAccess();
+
   return (
     <html lang="zh-CN" suppressHydrationWarning>
       <body className={`${serif.variable} ${mono.variable}`}>
         <script dangerouslySetInnerHTML={{ __html: themeInitScript }} />
-        <SideNav />
+        <SideNav isUnlocked={isUnlocked} />
         <main className="layout-shell page-shell">{children}</main>
       </body>
     </html>

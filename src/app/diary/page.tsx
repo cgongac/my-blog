@@ -20,10 +20,13 @@ export default async function DiaryPage({
   const selectedTag = pickSingle(searchParams.tag);
 
   const entries = await getAllDiaryEntries();
-  const filtered = filterEntries(entries, { category: selectedCategory, tag: selectedTag });
-  const categories = collectCategories(entries);
-  const tags = collectTags(entries);
   const unlocked = hasPrivateAccess();
+  
+  const visibleEntries = entries.filter((e) => e.visibility === "public" || unlocked);
+  
+  const filtered = filterEntries(visibleEntries, { category: selectedCategory, tag: selectedTag });
+  const categories = collectCategories(visibleEntries);
+  const tags = collectTags(visibleEntries);
 
   return (
     <section>
@@ -44,8 +47,7 @@ export default async function DiaryPage({
       ) : (
         <div className="content-list">
           {filtered.map((entry) => {
-            const isLocked = entry.visibility === "private" && !unlocked;
-            const href = isLocked ? buildUnlockUrl(`/diary/${entry.slug}`) : `/diary/${entry.slug}`;
+            const href = `/diary/${entry.slug}`;
 
             return (
               <ContentCard
@@ -54,7 +56,7 @@ export default async function DiaryPage({
                 date={entry.date}
                 category={entry.category}
                 href={href}
-                isLocked={isLocked}
+                isLocked={false}
                 // summary and tags omitted for cleaner view
               />
             );

@@ -1,12 +1,11 @@
 import { siteConfig } from "@/config/site";
-import { getAllArticles, getAllDiaryEntries, getAllFragments } from "@/lib/content";
+import { getAllArticles, getAllDiaryEntries } from "@/lib/content";
 import { EditorialFeed, type FeedItem } from "@/components/editorial-feed"; // Import new component
 
 export default async function HomePage(): Promise<JSX.Element> {
-  const [articles, diary, fragments] = await Promise.all([
+  const [articles, diary] = await Promise.all([
     getAllArticles(),
     getAllDiaryEntries(),
-    getAllFragments(),
   ]);
 
   const feed: FeedItem[] = [
@@ -27,15 +26,6 @@ export default async function HomePage(): Promise<JSX.Element> {
         href: `/diary/${e.slug}`,
         sectionLabel: "Diary",
         key: `d-${e.slug}`,
-      })),
-    ...fragments
-      .filter((e) => e.visibility === "public")
-      .map((e) => ({
-        title: e.title,
-        date: e.date,
-        href: `/fragments`,
-        sectionLabel: "Fragment",
-        key: `f-${e.slug}`,
       })),
   ].sort((a, b) => (a.date < b.date ? 1 : -1));
 

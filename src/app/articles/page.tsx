@@ -2,6 +2,7 @@ import Link from "next/link";
 
 import { EmptyState } from "@/components/empty-state";
 import { FilterBar } from "@/components/filter-bar";
+import { hasPrivateAccess } from "@/lib/auth";
 import { collectCategories, collectTags, filterEntries, getAllArticles } from "@/lib/content";
 import { formatDate } from "@/lib/date";
 import { renderMarkdown } from "@/lib/markdown";
@@ -43,9 +44,12 @@ export default async function ArticlesPage({
   const selectedSlug = pickSingle(searchParams.slug);
 
   const articles = await getAllArticles();
-  const filtered = filterEntries(articles, { category: selectedCategory, tag: selectedTag });
-  const categories = collectCategories(articles);
-  const tags = collectTags(articles);
+  const unlocked = hasPrivateAccess();
+  const visibleArticles = articles.filter((a) => a.visibility === "public" || unlocked);
+  
+  const filtered = filterEntries(visibleArticles, { category: selectedCategory, tag: selectedTag });
+  const categories = collectCategories(visibleArticles);
+  const tags = collectTags(visibleArticles);
   const activeEntry = filtered.find((entry) => entry.slug === selectedSlug) ?? filtered[0];
   const activeHtml = activeEntry ? await renderMarkdown(activeEntry.body) : "";
 
