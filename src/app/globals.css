@@ -73,11 +73,11 @@ a {
 .layout-shell {
   width: min(100%, 1400px); /* Increased from 1100px to spread content out */
   margin: 0 auto;
-  padding: 0 4rem 0 8rem; /* Increased padding */
+  padding: 0 2rem 0 6rem; /* Reduced padding for wider content */
 }
 
 .page-shell {
-  padding-top: 1rem;
+  padding-top: 4rem;
   padding-bottom: 5rem;
 }
 
@@ -214,14 +214,6 @@ a {
   padding-top: 1rem;
 }
 
-/* ─── Layout Adjustments ─── */
-
-.layout-shell {
-  width: min(100%, 1100px);
-  margin: 0 auto;
-  padding: 0 2.5rem 0 6rem; /* Left padding accommodates collapsed sidebar */
-}
-
 @media (max-width: 768px) {
   .side-nav {
     top: auto;
@@ -303,15 +295,15 @@ a {
   -webkit-mask-image: linear-gradient(
     to bottom,
     transparent 0%,
-    black 60px,
-    black calc(100% - 60px),
+    black 24px,
+    black calc(100% - 24px),
     transparent 100%
   );
   mask-image: linear-gradient(
     to bottom,
     transparent 0%,
-    black 60px,
-    black calc(100% - 60px),
+    black 24px,
+    black calc(100% - 24px),
     transparent 100%
   );
 }

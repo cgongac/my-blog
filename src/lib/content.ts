@@ -45,7 +45,9 @@ async function listMarkdownFiles(directory: ContentDirectory): Promise<string[]>
     throw error;
   }
 
-  return files.filter((file) => file.endsWith(".md")).map((file) => path.join(target, file));
+  return files
+    .filter((file) => file.endsWith(".md") && !file.startsWith("_"))
+    .map((file) => path.join(target, file));
 }
 
 function parseFrontmatter(filePath: string, data: unknown): Frontmatter {
