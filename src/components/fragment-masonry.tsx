@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useState } from "react";
 import Link from "next/link";
 import { type FragmentEntry } from "@/types/content";
 
@@ -16,7 +16,6 @@ function formatDotDate(dateStr: string): string {
 }
 
 export function FragmentMasonry({ items }: FragmentMasonryProps): JSX.Element {
-  const containerRef = useRef<HTMLDivElement>(null);
   const [numColumns, setNumColumns] = useState(3);
 
   useEffect(() => {
@@ -40,63 +39,10 @@ export function FragmentMasonry({ items }: FragmentMasonryProps): JSX.Element {
     columns[i % numColumns].push(item);
   });
 
-  useEffect(() => {
-    const container = containerRef.current;
-    if (!container) return;
-
-    const handleScroll = (): void => {
-      const containerRect = container.getBoundingClientRect();
-      const containerCenter = containerRect.top + containerRect.height / 2;
-      
-      // Range for effect
-      const range = containerRect.height / 1.5;
-
-      // Query cards dynamically to ensure we always have the current list
-      const cards = container.querySelectorAll<HTMLElement>(".masonry-card");
-
-      cards.forEach((item) => {
-        const itemRect = item.getBoundingClientRect();
-        // Use the vertical center of the card
-        const itemCenter = itemRect.top + itemRect.height / 2;
-        const dist = Math.abs(containerCenter - itemCenter);
-        
-        let scale = 1;
-        let opacity = 1;
-        
-        if (dist < range) {
-          const ratio = dist / range;
-          scale = 1 - ratio * 0.12; 
-          opacity = 1 - ratio * 0.5;
-        } else {
-          scale = 0.88;
-          opacity = 0.5;
-        }
-
-        item.style.transform = `scale(${scale})`;
-        item.style.opacity = String(opacity);
-      });
-    };
-
-    handleScroll();
-    container.addEventListener("scroll", handleScroll, { passive: true });
-    
-    // We already handle resize for columns, but we also need to recalculate effects on resize
-    // Since re-rendering happens on resize (due to numColumns change), 
-    // this effect will re-run if we include numColumns in dependency, 
-    // or we can attach a separate resize listener here if dependency is [].
-    // Given the column change handles the major layout shift, let's just 
-    // rely on the fact that handleScroll is called on mount, 
-    // and if we add numColumns to dependency, it gets called again after layout change.
-    
-    return () => {
-      container.removeEventListener("scroll", handleScroll);
-    };
-  }, [numColumns]); // Re-run when columns change to ensure correct initial state for new layout
-
   return (
-    <div className="masonry-scroll-container" ref={containerRef}>
+    <div className="masonry-scroll-container">
       {/* Spacer for centering first item */}
-      <div style={{ height: "15vh" }} />
+      <div style={{ height: "4vh" }} />
       
       <div 
         className="masonry-grid" 
@@ -111,7 +57,6 @@ export function FragmentMasonry({ items }: FragmentMasonryProps): JSX.Element {
                 <article
                   key={item.slug}
                   className="masonry-card"
-                  // ref handling replaced by querySelectorAll in effect
                 >
                   <div className="masonry-media">
                     {/* If has text only, show abstract pattern or color */}
