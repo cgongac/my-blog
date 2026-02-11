@@ -339,16 +339,16 @@ a {
   break-inside: avoid;
 
   background: transparent; /* No background color */
-  border-radius: 20px; /* Softer rounded corners */
-  overflow: hidden;
+  border-radius: 0; /* No rounded corners */
+  overflow: visible;
   box-shadow: none; /* Removed shadow */
   transition: transform 0.1s ease-out, opacity 0.1s ease-out;
   position: relative;
   border: none; /* Removed border */
   
-  /* Edge blur effect for the image card */
-  -webkit-mask-image: radial-gradient(white 85%, transparent 100%);
-  mask-image: radial-gradient(white 85%, transparent 100%);
+  /* Edge blur effect removed */
+  -webkit-mask-image: none;
+  mask-image: none;
 }
 
 .masonry-card:hover {
