@@ -7,7 +7,7 @@ tags:
   - growth
 category: "复盘"
 summary: "二月阶段复盘：节奏、情绪与输出质量。"
-visibility: "public"
+visibility: "private"
 ---
 
 这个月我最明显的变化，是把任务拆分得更小了。
