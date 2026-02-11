@@ -146,6 +146,17 @@ export function FragmentMasonry({ items }: FragmentMasonryProps): JSX.Element {
         ))}
       </div>
 
+      <div style={{ 
+        textAlign: "center", 
+        opacity: 0.4, 
+        marginTop: "4rem", 
+        fontFamily: "var(--font-serif)",
+        fontSize: "0.9rem",
+        letterSpacing: "0.1em"
+      }}>
+        ———— 到底啦 ————
+      </div>
+
       <div style={{ height: "15vh" }} />
     </div>
   );

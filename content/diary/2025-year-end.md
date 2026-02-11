@@ -5,7 +5,7 @@ date: "2025-12-31"
 tags: ["Review", "Yearly"]
 category: " Yearly"
 summary: "Closing the chapter on a year of significant change."
-visibility: "public"
+visibility: "private"
 ---
 
 2025 was... accurate. That's the word that comes to mind. 

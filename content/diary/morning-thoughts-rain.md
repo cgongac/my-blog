@@ -5,7 +5,7 @@ date: "2026-01-10"
 tags: ["Morning"]
 category: "Daily"
 summary: "The sound of rain against the window is the best productivity soundtrack."
-visibility: "public"
+visibility: "private"
 ---
 
 Woke up at 6 AM today to the sound of heavy rain. Instead of rushing to check my phone, I just lay there and listened.

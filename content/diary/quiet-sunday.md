@@ -5,7 +5,7 @@ date: "2025-12-14"
 tags: ["Life"]
 category: "Daily"
 summary: "Visited the old bookstore. Found a copy of Essence of Style."
-visibility: "public"
+visibility: "private"
 ---
 
 Sundays are for bookstores. 
