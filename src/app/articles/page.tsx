@@ -55,8 +55,8 @@ export default async function ArticlesPage({
 
   return (
     <section>
-      <h1 className="page-title">我的文章</h1>
-      <p className="page-subtitle">长文内容，支持按分类和标签筛选。</p>
+      <h1 className="page-title">My Newsletter</h1>
+      <p className="page-subtitle">我的 Newsletter，按期数排列。</p>
 
       <FilterBar
         pathname="/articles"

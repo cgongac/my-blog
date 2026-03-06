@@ -15,7 +15,7 @@ export async function generateMetadata({ params }: { params: { slug: string } })
 
   if (!article) {
     return {
-      title: "文章不存在"
+      title: "Newsletter 不存在"
     };
   }
 

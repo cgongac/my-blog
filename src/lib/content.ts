@@ -79,7 +79,7 @@ async function readEntries(directory: ContentDirectory, kind: ContentKind): Prom
     }
 
     if (kind === "article") {
-      entries.push({ ...meta, body: parsed.content, type: "article" });
+      entries.push({ ...meta, body: parsed.content, type: "article", issueNumber: 0 });
       continue;
     }
 
@@ -95,7 +95,15 @@ async function readEntries(directory: ContentDirectory, kind: ContentKind): Prom
 }
 
 export async function getAllArticles(): Promise<Article[]> {
-  return (await readEntries("articles", "article")) as Article[];
+  const entries = (await readEntries("articles", "article")) as Article[];
+  // Sort by date ascending (oldest first) to assign issue numbers
+  const byDateAsc = [...entries].sort((a, b) => (a.date < b.date ? -1 : 1));
+  byDateAsc.forEach((entry, index) => {
+    entry.issueNumber = index + 1;
+    entry.title = `#${index + 1}`;
+  });
+  // Return sorted by date descending (newest first)
+  return sortByDateDesc(byDateAsc);
 }
 
 export async function getAllDiaryEntries(): Promise<DiaryEntry[]> {

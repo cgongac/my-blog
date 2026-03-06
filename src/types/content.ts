@@ -15,6 +15,7 @@ export interface BaseMeta {
 export interface Article extends BaseMeta {
   type: "article";
   body: string;
+  issueNumber: number;
 }
 
 export interface DiaryEntry extends BaseMeta {

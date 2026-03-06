@@ -54,7 +54,7 @@ const Icons = {
 
 const navItems = [
   { href: "/", label: "首页", icon: Icons.Home },
-  { href: "/articles", label: "文章分类", icon: Icons.Article },
+  { href: "/articles", label: "My Newsletter", icon: Icons.Article },
   { href: "/diary", label: "日记", icon: Icons.Diary },
   { href: "/fragments", label: "日常碎片", icon: Icons.Fragment },
 ];

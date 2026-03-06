@@ -15,7 +15,7 @@ export default async function HomePage(): Promise<JSX.Element> {
         title: e.title,
         date: e.date,
         href: `/articles?slug=${e.slug}`,
-        sectionLabel: "Article",
+        sectionLabel: "Newsletter",
         key: `a-${e.slug}`,
       })),
     ...diary
