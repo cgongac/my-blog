@@ -56,7 +56,6 @@ export default async function ArticlesPage({
   return (
     <section>
       <h1 className="page-title">My Newsletter</h1>
-      <p className="page-subtitle">我的 Newsletter，按期数排列。</p>
 
       <FilterBar
         pathname="/articles"
