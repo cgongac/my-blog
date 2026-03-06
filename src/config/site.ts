@@ -1,6 +1,6 @@
 export const siteConfig = {
   siteName: "Giselle Notes",
-  siteSubtitle: "记录我的文章、日记与日常碎片",
+  siteSubtitle: "记录我的文章与日记",
   timezone: "Asia/Shanghai",
   themeDefault: "light" as const,
   socialLinks: [

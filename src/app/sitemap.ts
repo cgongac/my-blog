@@ -10,7 +10,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   const baseUrl = getBaseUrl();
   const [articles, diaryEntries] = await Promise.all([getAllArticles(), getAllDiaryEntries()]);
 
-  const staticRoutes: MetadataRoute.Sitemap = ["", "/articles", "/diary", "/fragments", "/unlock"].map((path) => ({
+  const staticRoutes: MetadataRoute.Sitemap = ["", "/articles", "/diary", "/unlock"].map((path) => ({
     url: `${baseUrl}${path}`,
     changeFrequency: "weekly",
     priority: path === "" ? 1 : 0.7

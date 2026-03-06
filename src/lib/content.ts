@@ -4,7 +4,7 @@ import { promises as fs } from "fs";
 import matter from "gray-matter";
 import { z } from "zod";
 
-import type { Article, BaseMeta, DiaryEntry, FragmentEntry } from "@/types/content";
+import type { Article, BaseMeta, DiaryEntry } from "@/types/content";
 import { isValidDate } from "@/lib/date";
 
 const contentRoot = path.join(process.cwd(), "content");
@@ -22,8 +22,8 @@ const frontmatterSchema = z.object({
 });
 
 type Frontmatter = z.infer<typeof frontmatterSchema>;
-type ContentKind = "article" | "diary" | "fragment";
-type ContentDirectory = "articles" | "diary" | "fragments";
+type ContentKind = "article" | "diary";
+type ContentDirectory = "articles" | "diary";
 
 function assertDate(date: string, filePath: string): void {
   if (!isValidDate(date)) {
@@ -65,9 +65,9 @@ function sortByDateDesc<T extends BaseMeta>(entries: T[]): T[] {
   return [...entries].sort((a, b) => (a.date < b.date ? 1 : -1));
 }
 
-async function readEntries(directory: ContentDirectory, kind: ContentKind): Promise<Array<Article | DiaryEntry | FragmentEntry>> {
+async function readEntries(directory: ContentDirectory, kind: ContentKind): Promise<Array<Article | DiaryEntry>> {
   const files = await listMarkdownFiles(directory);
-  const entries: Array<Article | DiaryEntry | FragmentEntry> = [];
+  const entries: Array<Article | DiaryEntry> = [];
 
   for (const filePath of files) {
     const source = await fs.readFile(filePath, "utf8");
@@ -87,8 +87,6 @@ async function readEntries(directory: ContentDirectory, kind: ContentKind): Prom
       entries.push({ ...meta, body: parsed.content, type: "diary" });
       continue;
     }
-
-    entries.push({ ...meta, body: parsed.content, type: "fragment" });
   }
 
   return sortByDateDesc(entries);
@@ -108,10 +106,6 @@ export async function getAllArticles(): Promise<Article[]> {
 
 export async function getAllDiaryEntries(): Promise<DiaryEntry[]> {
   return (await readEntries("diary", "diary")) as DiaryEntry[];
-}
-
-export async function getAllFragments(): Promise<FragmentEntry[]> {
-  return (await readEntries("fragments", "fragment")) as FragmentEntry[];
 }
 
 export async function getArticleBySlug(slug: string): Promise<Article | null> {

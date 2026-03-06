@@ -23,7 +23,4 @@ export interface DiaryEntry extends BaseMeta {
   body: string;
 }
 
-export interface FragmentEntry extends BaseMeta {
-  type: "fragment";
-  body: string;
-}
+

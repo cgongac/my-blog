@@ -26,11 +26,6 @@ const Icons = {
       <path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z" />
     </svg>
   ),
-  Fragment: () => (
-    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5">
-      <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z" />
-    </svg>
-  ),
   Lock: () => (
     <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5">
       <rect x="3" y="11" width="18" height="11" rx="2" ry="2" />
@@ -56,7 +51,6 @@ const navItems = [
   { href: "/", label: "首页", icon: Icons.Home },
   { href: "/articles", label: "My Newsletter", icon: Icons.Article },
   { href: "/diary", label: "日记", icon: Icons.Diary },
-  { href: "/fragments", label: "日常碎片", icon: Icons.Fragment },
 ];
 
 export function SideNav({ isUnlocked = false }: { isUnlocked?: boolean }): JSX.Element {
