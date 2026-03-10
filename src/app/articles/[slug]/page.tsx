@@ -4,6 +4,7 @@ import { notFound } from "next/navigation";
 import { formatDate } from "@/lib/date";
 import { getAllArticles, getArticleBySlug } from "@/lib/content";
 import { renderMarkdown } from "@/lib/markdown";
+import { siteConfig } from "@/config/site";
 
 export async function generateStaticParams(): Promise<Array<{ slug: string }>> {
   const articles = await getAllArticles();
@@ -37,8 +38,11 @@ export default async function ArticleDetailPage({ params }: { params: { slug: st
   return (
     <article className="detail-shell">
       <h1 className="page-title">{article.title}</h1>
-      <p className="page-subtitle">
-        {formatDate(article.date)} · {article.category}
+      <p className="page-meta">
+        <span className="page-meta-label">Written by</span>{" "}
+        <span className="page-meta-author">{siteConfig.siteName}</span>
+        <span className="page-meta-sep" />
+        <span className="page-meta-date">{formatDate(article.date)}</span>
       </p>
       <section className="markdown-body" dangerouslySetInnerHTML={{ __html: html }} />
     </article>

@@ -71,9 +71,9 @@ a {
 /* ─── Layout ─── */
 
 .layout-shell {
-  width: min(100%, 1400px); /* Increased from 1100px to spread content out */
+  width: min(100%, 1400px);
   margin: 0 auto;
-  padding: 0 2rem 0 6rem; /* Reduced padding for wider content */
+  padding: 0 2rem 0 252px; /* Account for 220px sidebar + some spacing */
 }
 
 .page-shell {
@@ -124,94 +124,124 @@ a {
   top: 0;
   left: 0;
   bottom: 0;
-  width: 64px;
+  width: 220px;
   background: var(--color-bg);
   border-right: 1px solid var(--color-border);
   z-index: 50;
-  transition: width 0.3s cubic-bezier(0.16, 1, 0.3, 1);
   overflow: hidden;
-  padding: 1.5rem 0;
-}
-
-.side-nav:hover {
-  width: 220px;
-  background: var(--color-bg-elevated);
+  padding: 2rem 1.5rem;
 }
 
 .side-nav-content {
   display: flex;
   flex-direction: column;
   height: 100%;
-  justify-content: space-between;
 }
 
+/* Profile section */
+.side-nav-profile {
+  margin-bottom: 2rem;
+}
+
+.side-nav-avatar {
+  width: 56px;
+  height: 56px;
+  border-radius: 50%;
+  background: var(--color-accent);
+  color: var(--color-bg);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: var(--font-serif);
+  font-size: 1.4rem;
+  font-weight: 700;
+  margin-bottom: 1rem;
+}
+
+.side-nav-bio {
+  font-family: var(--font-serif);
+  font-size: 0.85rem;
+  line-height: 1.6;
+  color: var(--color-text-secondary);
+  margin: 0 0 1rem;
+}
+
+.side-nav-social {
+  display: flex;
+  gap: 0.75rem;
+}
+
+.side-nav-social-link {
+  color: var(--color-accent);
+  transition: opacity 0.2s ease;
+}
+
+.side-nav-social-link:hover {
+  opacity: 0.7;
+}
+
+/* Navigation links */
 .side-nav-list {
   list-style: none;
   padding: 0;
   margin: 0;
   display: flex;
   flex-direction: column;
-  gap: 0.5rem;
-}
-
-.side-nav-item-wrapper {
-  padding: 0 0.8rem;
+  gap: 0.25rem;
 }
 
 .side-nav-link {
-  display: flex;
-  align-items: center;
-  height: 44px;
-  padding: 0 0.6rem;
-  border-radius: 8px;
-  color: var(--color-muted);
-  transition: all 0.2s ease;
-  white-space: nowrap;
-  cursor: pointer;
-  background: transparent;
-  width: 100%;
-  border: none;
-  text-align: left;
+  display: block;
+  padding: 0.4rem 0;
   font-family: var(--font-serif);
+  font-size: 0.95rem;
+  color: var(--color-accent);
+  transition: opacity 0.2s ease;
+  text-decoration: none;
+  background: none;
+  border: none;
+  cursor: pointer;
+  text-align: left;
 }
 
 .side-nav-link:hover {
-  color: var(--color-text);
-  background: var(--color-accent-light);
+  opacity: 0.7;
 }
 
 .side-nav-link.active {
-  color: var(--color-text);
-  background: var(--color-accent-light);
-  font-weight: 600;
-}
-
-.side-nav-icon {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  min-width: 24px;
-  height: 24px;
-}
-
-.side-nav-text {
-  margin-left: 1rem;
-  opacity: 0;
-  font-size: 0.95rem;
-  transition: opacity 0.2s ease;
-  visibility: hidden;
-}
-
-.side-nav:hover .side-nav-text {
-  opacity: 1;
-  visibility: visible;
-  transition-delay: 0.1s;
+  font-weight: 700;
 }
 
 .side-nav-footer {
   margin-top: auto;
-  border-top: 1px solid var(--color-accent-light);
+  border-top: 1px solid var(--color-border);
   padding-top: 1rem;
+}
+
+.side-nav-footer-actions {
+  display: flex;
+  gap: 0.75rem;
+  align-items: center;
+}
+
+.side-nav-footer-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 32px;
+  height: 32px;
+  border-radius: 6px;
+  border: none;
+  background: transparent;
+  color: var(--color-muted);
+  cursor: pointer;
+  transition: all 0.2s ease;
+  text-decoration: none;
+}
+
+.side-nav-footer-btn:hover {
+  color: var(--color-text);
+  background: var(--color-accent-light);
 }
 
 @media (max-width: 768px) {
@@ -226,16 +256,15 @@ a {
     flex-direction: row;
   }
 
-  .side-nav:hover {
-    width: 100%;
-    background: var(--color-bg);
-  }
-
   .side-nav-content {
     flex-direction: row;
     width: 100%;
     justify-content: center;
     gap: 1rem;
+  }
+
+  .side-nav-profile {
+    display: none;
   }
 
   .side-nav-list {
@@ -247,41 +276,24 @@ a {
   }
 
   .side-nav-footer {
-    display: none; /* Hide secondary actions on mobile for simplicity, or move to a 'More' menu */
-  }
-
-  .side-nav-item-wrapper {
-    padding: 0;
-    flex: 1;
-    display: flex;
-    justify-content: center;
+    display: none;
   }
 
   .side-nav-link {
-    justify-content: center;
-    padding: 0;
-    height: 100%;
-    border-radius: 0;
-  }
-
-  .side-nav-text {
-    display: none;
-  }
-  
-  .side-nav-icon {
-    margin: 0;
+    padding: 0.5rem 0.75rem;
+    font-size: 0.85rem;
+    text-align: center;
   }
 
   .layout-shell {
     padding: 0 1.25rem;
-    padding-bottom: 5rem; /* Space for bottom nav */
+    padding-bottom: 5rem;
   }
 
   .editorial-layout {
     padding-top: 1.5rem;
   }
 }
-
 /* ─── Editorial homepage ─── */
 
 .editorial-layout {
@@ -440,7 +452,7 @@ a {
 
 .page-title {
   font-family: var(--font-serif);
-  font-size: clamp(2rem, 3.5vw, 3rem);
+  font-size: clamp(2.2rem, 4vw, 3.2rem);
   font-weight: 700;
   letter-spacing: -0.02em;
   margin: 0;
@@ -453,6 +465,36 @@ a {
   color: var(--color-muted);
   font-size: 1rem;
   font-family: var(--font-serif);
+}
+
+/* Article detail meta line: "Written by Author   Date" */
+.page-meta {
+  margin-top: 1rem;
+  margin-bottom: 0;
+  font-family: var(--font-serif);
+  font-size: 0.9rem;
+  color: var(--color-muted);
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+}
+
+.page-meta-label {
+  color: var(--color-muted);
+}
+
+.page-meta-author {
+  color: var(--color-text-secondary);
+  font-weight: 600;
+}
+
+.page-meta-sep {
+  display: inline-block;
+  width: 2rem;
+}
+
+.page-meta-date {
+  color: var(--color-muted);
 }
 
 /* ─── Filter ─── */
@@ -648,13 +690,15 @@ a {
   background: transparent;
   border-radius: 0;
   box-shadow: none;
+  max-width: 680px; /* Comfortable reading width */
 }
 
 .markdown-body {
-  margin-top: 1.5rem;
+  margin-top: 2rem;
   font-family: var(--font-serif);
-  font-size: 1.05rem;
-  line-height: 1.85;
+  font-size: 1.1rem;
+  line-height: 1.9;
+  color: var(--color-text);
 }
 
 .markdown-body h1,
@@ -683,7 +727,7 @@ a {
 .markdown-body ul,
 .markdown-body ol,
 .markdown-body blockquote {
-  margin: 1rem 0;
+  margin: 1.25rem 0;
 }
 
 .markdown-body blockquote {
@@ -943,6 +987,7 @@ a {
 @media (max-width: 900px) {
   .layout-shell {
     padding: 0 1.5rem;
+    padding-bottom: 5rem;
   }
 
   .editorial-layout {
