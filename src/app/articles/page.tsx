@@ -1,81 +1,42 @@
 import Link from "next/link";
 
 import { EmptyState } from "@/components/empty-state";
-import { FilterBar } from "@/components/filter-bar";
 import { hasPrivateAccess } from "@/lib/auth";
-import { collectCategories, collectTags, filterEntries, getAllArticles } from "@/lib/content";
+import { getAllArticles } from "@/lib/content";
 import { formatDate } from "@/lib/date";
 import { renderMarkdown } from "@/lib/markdown";
 
-function pickSingle(value: string | string[] | undefined): string | undefined {
-  return typeof value === "string" ? value : undefined;
-}
-
-function buildArticleHref({
-  slug,
-  category,
-  tag
-}: {
-  slug: string;
-  category?: string;
-  tag?: string;
-}): string {
-  const params = new URLSearchParams();
-
-  if (category) {
-    params.set("category", category);
-  }
-
-  if (tag) {
-    params.set("tag", tag);
-  }
-
-  params.set("slug", slug);
-  return `/articles?${params.toString()}`;
+function buildArticleHref(slug: string): string {
+  return `/articles?slug=${slug}`;
 }
 
 export default async function ArticlesPage({
   searchParams
 }: {
-  searchParams: { category?: string | string[]; tag?: string | string[]; slug?: string | string[] };
+  searchParams: { slug?: string | string[] };
 }): Promise<JSX.Element> {
-  const selectedCategory = pickSingle(searchParams.category);
-  const selectedTag = pickSingle(searchParams.tag);
-  const selectedSlug = pickSingle(searchParams.slug);
+  const selectedSlug = typeof searchParams.slug === "string" ? searchParams.slug : undefined;
 
   const articles = await getAllArticles();
   const unlocked = hasPrivateAccess();
   const visibleArticles = articles.filter((a) => a.visibility === "public" || unlocked);
-  
-  const filtered = filterEntries(visibleArticles, { category: selectedCategory, tag: selectedTag });
-  const categories = collectCategories(visibleArticles);
-  const tags = collectTags(visibleArticles);
-  const activeEntry = filtered.find((entry) => entry.slug === selectedSlug) ?? filtered[0];
+  const activeEntry = visibleArticles.find((entry) => entry.slug === selectedSlug) ?? visibleArticles[0];
   const activeHtml = activeEntry ? await renderMarkdown(activeEntry.body) : "";
 
   return (
     <section>
       <h1 className="page-title">My Newsletter</h1>
 
-      <FilterBar
-        pathname="/articles"
-        categories={categories}
-        tags={tags}
-        currentCategory={selectedCategory}
-        currentTag={selectedTag}
-        showTags={false}
-      />
-
-      {filtered.length === 0 || !activeEntry ? (
-        <EmptyState title="没有匹配内容" description="试试清空筛选条件，或者稍后再来看看。" />
+      {visibleArticles.length === 0 || !activeEntry ? (
+        <EmptyState title="没有匹配内容" description="稍后再来看看。" />
       ) : (
         <div className="article-timeline-layout">
           <aside className="article-timeline" aria-label="文章时间线">
             <ol className="article-timeline-list">
-              {filtered.map((entry) => {
+              {visibleArticles.map((entry) => {
                 const isActive = entry.slug === activeEntry.slug;
                 const isPrivate = entry.visibility === "private";
-                const href = buildArticleHref({ slug: entry.slug, category: selectedCategory, tag: selectedTag });
+                const href = buildArticleHref(entry.slug);
                 const itemClass = `article-timeline-item${isActive ? " article-timeline-item-active" : ""}${
                   isPrivate ? " article-timeline-item-locked" : ""
                 }`;
@@ -84,7 +45,7 @@ export default async function ArticlesPage({
                   <li key={entry.slug}>
                     <Link className={itemClass} href={href}>
                       <span className="article-timeline-title">{entry.title}</span>
-                      <span className="article-timeline-meta">{formatDate(entry.date)} · {entry.category}</span>
+                      <span className="article-timeline-meta">{formatDate(entry.date)}</span>
                     </Link>
                   </li>
                 );
@@ -96,7 +57,7 @@ export default async function ArticlesPage({
             <header className="article-reader-head">
               <h2 className="article-reader-title">{activeEntry.title}</h2>
               <p className="article-reader-meta">
-                {formatDate(activeEntry.date)} · {activeEntry.category}
+                {formatDate(activeEntry.date)}
               </p>
             </header>
 

@@ -4,12 +4,9 @@ export interface BaseMeta {
   title: string;
   slug: string;
   date: string;
-  tags: string[];
-  category: string;
   summary: string;
   visibility: Visibility;
   draft?: boolean;
-  images?: string[]; // Add support for images gallery
 }
 
 export interface Article extends BaseMeta {

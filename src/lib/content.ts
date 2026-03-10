@@ -13,12 +13,9 @@ const frontmatterSchema = z.object({
   title: z.string().min(1),
   slug: z.string().min(1),
   date: z.string().min(1),
-  tags: z.array(z.string().min(1)).default([]),
-  category: z.string().min(1),
   summary: z.string().min(1),
   visibility: z.enum(["public", "private"]),
   draft: z.boolean().optional(),
-  images: z.array(z.string()).optional(),
 });
 
 type Frontmatter = z.infer<typeof frontmatterSchema>;
@@ -118,24 +115,7 @@ export async function getDiaryBySlug(slug: string): Promise<DiaryEntry | null> {
   return list.find((item) => item.slug === slug) ?? null;
 }
 
-export function filterEntries<T extends BaseMeta>(entries: T[], options: { category?: string; tag?: string }): T[] {
-  const { category, tag } = options;
 
-  return entries.filter((entry) => {
-    const matchCategory = category ? entry.category === category : true;
-    const matchTag = tag ? entry.tags.includes(tag) : true;
-
-    return matchCategory && matchTag;
-  });
-}
-
-export function collectCategories<T extends BaseMeta>(entries: T[]): string[] {
-  return Array.from(new Set(entries.map((entry) => entry.category))).sort();
-}
-
-export function collectTags<T extends BaseMeta>(entries: T[]): string[] {
-  return Array.from(new Set(entries.flatMap((entry) => entry.tags))).sort();
-}
 
 export function latestDate<T extends BaseMeta>(entries: T[]): string | null {
   if (entries.length === 0) {

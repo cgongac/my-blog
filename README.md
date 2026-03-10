@@ -1,6 +1,6 @@
 # Personal Blog
 
-基于 Next.js + TypeScript + Markdown 的个人博客模板。
+基于 Next.js + TypeScript + Markdown 的个人博客。
 
 ## 本地运行
 
@@ -10,17 +10,16 @@ cp .env.example .env.local
 npm run dev
 ```
 
-## 必需环境变量
+## 环境变量
 
-- `BLOG_PRIVATE_PASSWORD`: 私密区统一访问密码
-- `NEXT_PUBLIC_SITE_URL`: 站点地址（用于 sitemap/metadata）
+- `BLOG_PRIVATE_PASSWORD`: 私密区访问密码
+- `NEXT_PUBLIC_SITE_URL`: 站点地址
 
 ## 页面
 
-- `/`
-- `/articles`
-- `/articles/[slug]`
-- `/diary`
-- `/diary/[slug]`
-- `/fragments`
-- `/unlock`
+- `/` 首页
+- `/articles` Newsletter
+- `/articles/[slug]` 文章详情
+- `/diary` My Diary
+- `/diary/[slug]` 日记详情
+- `/unlock` 解锁私密内容

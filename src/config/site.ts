@@ -7,6 +7,10 @@ export const siteConfig = {
     {
       label: "GitHub",
       href: "https://github.com/"
+    },
+    {
+      label: "Twitter",
+      href: "https://x.com/cozyease_7811"
     }
   ]
 };

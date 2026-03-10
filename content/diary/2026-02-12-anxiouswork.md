@@ -2,9 +2,6 @@
 title: "Starting Feeling Anxious About Work Again."
 slug: "2026-02-12-anxiouswork"
 date: "2026-02-12"
-tags:
-  - tag1
-category: "Clutter"
 summary: "nothing"
 visibility: "private"
 ---

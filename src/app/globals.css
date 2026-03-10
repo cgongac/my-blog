@@ -126,7 +126,7 @@ a {
   bottom: 0;
   width: 220px;
   background: var(--color-bg);
-  border-right: 1px solid var(--color-border);
+  border-right: none;
   z-index: 50;
   overflow: hidden;
   padding: 2rem 1.5rem;
@@ -160,7 +160,7 @@ a {
 
 .side-nav-bio {
   font-family: var(--font-serif);
-  font-size: 0.85rem;
+  font-size: 0.95rem;
   line-height: 1.6;
   color: var(--color-text-secondary);
   margin: 0 0 1rem;
@@ -194,18 +194,21 @@ a {
   display: block;
   padding: 0.4rem 0;
   font-family: var(--font-serif);
-  font-size: 0.95rem;
+  font-size: 1.1rem;
   color: var(--color-accent);
-  transition: opacity 0.2s ease;
+  transition: transform 0.35s cubic-bezier(0.25, 0.1, 0.25, 1), opacity 0.35s ease;
   text-decoration: none;
   background: none;
   border: none;
   cursor: pointer;
   text-align: left;
+  transform-origin: left center;
+  opacity: 0.55;
 }
 
 .side-nav-link:hover {
-  opacity: 0.7;
+  transform: scale(1.13);
+  opacity: 1;
 }
 
 .side-nav-link.active {
@@ -228,8 +231,8 @@ a {
   display: flex;
   align-items: center;
   justify-content: center;
-  width: 32px;
-  height: 32px;
+  width: 36px;
+  height: 36px;
   border-radius: 6px;
   border: none;
   background: transparent;
@@ -497,60 +500,6 @@ a {
   color: var(--color-muted);
 }
 
-/* ─── Filter ─── */
-
-.filter-block {
-  margin-top: 2rem;
-  padding: 1.2rem 0;
-  border-top: 1px solid var(--color-border);
-  /* border-bottom removed per request */
-}
-
-.filter-line {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 0.5rem;
-  align-items: center;
-}
-
-.filter-line + .filter-line {
-  margin-top: 0.7rem;
-}
-
-.filter-label {
-  font-family: var(--font-stack-mono);
-  font-size: 0.72rem;
-  color: var(--color-muted);
-  margin-right: 0.25rem;
-  font-weight: 400;
-  text-transform: uppercase;
-  letter-spacing: 0.06em;
-}
-
-.tag-chip {
-  border: 1px solid var(--color-border);
-  padding: 0.28rem 0.7rem;
-  font-family: var(--font-serif);
-  font-size: 0.82rem;
-  background: transparent;
-  color: var(--color-text-secondary);
-  cursor: pointer;
-  display: inline-block;
-  transition: all 0.15s ease;
-  border-radius: 0;
-}
-
-.tag-chip:hover {
-  border-color: var(--color-text);
-  color: var(--color-text);
-}
-
-.tag-chip-active {
-  background: var(--color-text);
-  color: var(--color-bg);
-  border-color: var(--color-text);
-}
-
 /* ─── Content list ─── */
 
 .content-list {
@@ -652,13 +601,6 @@ a {
 
 .content-summary-locked {
   opacity: 0.5;
-}
-
-.tag-row {
-  margin-top: 0.65rem;
-  display: flex;
-  flex-wrap: wrap;
-  gap: 0.35rem;
 }
 
 /* ─── Empty state ─── */

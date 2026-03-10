@@ -2,10 +2,6 @@
 title: "BARREN"
 slug: "2026-02-15-barren"
 date: "2026-02-15"
-tags:
-  - tag1
-  - tag2
-category: "Daily"
 summary: "这里写简短的摘要"
 visibility: "private"
 ---
